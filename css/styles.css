@@ -1,55 +1,26 @@
-    body {
-        margin: 0;
-        padding: 0;
-        font-family: Papyrus, Fantasy;
-		background-color: #000;
-    }
-
-    .container {
-        display: flex;
-        flex-direction: column;
-        height: 100vh;
-    }
-	
-	.top-sections,
-	.middle-section,
-	.bottom-section {
-		background-color: #222;
-		border: 2px solid #ddd;
-		padding: 20px;
-		margin-bottom: 20px;
-	}
-
-    .top-sections {
-        display: flex;
-        justify-content: space-between;
-    }
-
-    .left-section,
-    .middle-section {
-        flex-basis: 45%; /* Adjust as needed */
-    }
-	
-	.indent {
-		margin-left: 20px;
-	}
-	
-	.indent_secondary {
-		margin-left: 20px;
-	}
-	
-	h2 {
-		color: #fff;
-	}
-	
-	h3 {
-	color: #ddd;
-    font-size: 18px;
-    margin-bottom: 5px;
-	}
-
-	h4 {
-		color: #ddd;
-    font-size: 16px;
-    margin-bottom: 3px;
-	}
+body {
+	margin: 0;
+	padding: 0;
+	background-color: #000;
+	background-image: radial-gradient(
+			rgba(255, 255, 255, 0.2) 1px,
+			transparent 1px
+		),
+		radial-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px),
+		radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+		radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+	background-size:
+		65px 95px,
+		85px 135px,
+		145px 165px,
+		185px 250px;
+	background-position:
+		0 0,
+		0 0,
+		0 0,
+		0 0;
+	background-repeat: repeat, repeat, repeat, repeat;
+	height: 100vh;
+	width: 100vw;
+	color: #fff;
+}
