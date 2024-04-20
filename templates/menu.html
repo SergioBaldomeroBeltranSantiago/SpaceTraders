@@ -1,0 +1,17 @@
+<div class="menuList">
+	<button
+		class="menuOptions"
+		onclick="fetchHTML('./templates/existingAgent.html', 'existing-container');switchMenuOption(event, 'existing-container')"
+	>
+		Existing Agent? Click here!
+	</button>
+	<button
+		class="menuOptions"
+		onclick="switchMenuOption(event, 'new-container')"
+	>
+		Click here to create a new Agent
+	</button>
+</div>
+
+<div class="menuContent" id="existing-container"></div>
+<div class="menuContent" id="new-container"></div>

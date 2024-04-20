@@ -1,0 +1,48 @@
+.menuList {
+	overflow: hidden;
+	border: 1px solid #fff;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-top: auto;
+	margin-left: 50px;
+	margin-right: 50px;
+}
+
+.menuOptions {
+	background-color: inherit;
+	float: left;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	padding: 14px 16px;
+	transition: 0.3s;
+	color: #fff;
+}
+
+.menuOptions:hover {
+	background-color: #808080;
+}
+
+.menuOptions.active {
+	background-color: #c0c0c0;
+}
+
+.menuList .menuOptions {
+	margin: 5px;
+}
+
+@media (min-width: 768px) {
+	.menuList {
+		flex-direction: row;
+	}
+}
+
+.menuContent {
+	display: none;
+	padding: 6px 12px;
+	border: 1px solid #ccc;
+	border-top: none;
+	margin-left: 50px;
+	margin-right: 50px;
+}
