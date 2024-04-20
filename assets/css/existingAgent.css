@@ -1,0 +1,11 @@
+.subirToken {
+    display: inline-block;
+    padding: 10px 20px;
+    cursor: pointer;
+    color: #fff;
+    border: 2px solid #fff;
+}
+
+.subirToken:hover {
+    background-color: #808080;
+}
