@@ -1,0 +1,13 @@
+.header {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 25vh;
+	margin-bottom: 20px;
+}
+
+.header p {
+	font-size: 3em;
+	margin-bottom: 20px;
+}
