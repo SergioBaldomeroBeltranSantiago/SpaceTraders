@@ -1,17 +1,17 @@
-<div class="menuList">
+<div class="flex-container-column">
 	<button
-		class="menuOptions"
+		class="spaceMenuButton spaceText"
 		onclick="fetchHTML('./templates/existingAgent.html', 'existing-container');switchMenuOption(event, 'existing-container')"
 	>
 		Existing Agent? Click here!
 	</button>
 	<button
-		class="menuOptions"
+		class="spaceMenuButton spaceText"
 		onclick="switchMenuOption(event, 'new-container')"
 	>
-		Click here to create a new Agent
+		New Agent? Click here!
 	</button>
 </div>
 
-<div class="menuContent" id="existing-container"></div>
-<div class="menuContent" id="new-container"></div>
+<div class="spaceSubMenu" id="existing-container"></div>
+<div class="spaceSubMenu" id="new-container"></div>
