@@ -7,10 +7,17 @@
 		<link rel="stylesheet" href="./assets/css/styles.css" />
 		<link rel="stylesheet" href="./assets/css/header.css" />
 		<link rel="stylesheet" href="./assets/css/menu.css" />
+		<link rel="stylesheet" href="./assets/css/existingAgent.css" />
 	</head>
-	<body>
-		<div id="header-container"></div>
-		<div id="menu-container"></div>
+	<body class="spaceBackground">
+		<div id="arrangeScreen" class="flex-container">
+			<div id="arrangeColumn" id="flex-container-column">
+				<div id="header-container"></div>
+			</div>
+			<div id="arrangeColumn" id="flex-container-column">
+				<div id="menu-container"></div>
+			</div>
+		</div>
 		<!-- JavaScript, injecta componentes a la pagina, algo similar a como ReactJS o angular manejar los componentes modularizados -->
 		<script src="assets/js/fetchElement.js"></script>
 		<script>
