@@ -1,18 +1,109 @@
-<div>
+<div class="spaceText">
 	<p>
-		If you have an existing agent, you can use the token that you already
-		have to just retrieve your agent and not start from scratch.
+		If you already have an agent create, you can use it's existing token to
+		retrive all of the agent's data, like credits, contracts and ships. In
+		order to do that, we have two options available:
 	</p>
-	<br />
-	<label for="fileInput" class="subirToken">
-		<input id="fileInput" type="file" accept=".txt" style="display: none" />
-		Upload token from txt file
-	</label>
-	<br />
-	<p>Or you can just copy and paste the token as well</p>
-	<label>Token: </label>
-	<input type="text" />
-	<br/>
-	<br/>
-	<button>Validate token</button>
+	<details>
+		<summary>Using a txt or Json file</summary>
+		<p>
+			In order to use a file, txt or json, the file has to have a certain
+			structure for the program to be able to read it correctly. The file,
+			either .txt or .json should have a structure like in the following
+			pictures.
+		</p>
+
+		<details class="spaceImage">
+			<summary>Example 1</summary>
+			<img
+				src="./assets/img/ExampleFileStructure_01.png"
+				alt="Example 1"
+			/>
+		</details>
+
+		<details class="spaceImage">
+			<summary>Example 2</summary>
+			<img
+				src="./assets/img/ExampleFileStructure_02.png"
+				alt="Example 2"
+			/>
+		</details>
+
+		<details class="spaceImage">
+			<summary>Example 3</summary>
+			<img
+				src="./assets/img/ExampleFileStructure_03.png"
+				alt="Example 3"
+			/>
+		</details>
+
+		<details class="spaceImage">
+			<summary>Example 4</summary>
+			<img
+				src="./assets/img/ExampleFileStructure_04.png"
+				alt="Example 4"
+			/>
+		</details>
+
+		<details class="spaceImage">
+			<summary>Example 5</summary>
+			<img
+				src="./assets/img/ExampleFileStructure_05.png"
+				alt="Example 5"
+			/>
+		</details>
+
+		<p>
+			If you have a valid txt or json file with a token that you want to
+			use, then...
+		</p>
+		<div class="flex-container-column invisibleBorder"></div>
+		<div class="flex-container-column invisibleBorder">
+			<label for="spaceTokenInputFile" class="spaceTokenUpload">
+				<input
+					id="spaceTokenInputFile"
+					type="file"
+					accept=".txt, .json"
+					style="display: none"
+					onchange="checkInputs()"
+				/>
+				Upload your txt or json file here
+			</label>
+		</div>
+		<div class="flex-container-column invisibleBorder">
+			<label
+				><!-- Hacer un botón para limpiar la file selection aqui, que aparezca solo cuando file tenga algo--></label
+			>
+		</div>
+	</details>
+	<details>
+		<summary>Copying and pasting the token as raw text</summary>
+		<p>
+			If you prefer, you can only copy and paste the token from your txt
+			or json file and paste it on the field below.
+		</p>
+		<div class="flex-container-column invisibleBorder"></div>
+		<div class="flex-container-column invisibleBorder">
+			<label>Token: </label>
+			<input
+				id="spaceTokenInputText"
+				type="text"
+				oninput="checkInputs()"
+			/>
+		</div>
+		<div class="flex-container-column invisibleBorder"></div>
+	</details>
+	<div class="flex-container-row">
+		<div class="flex-container-column invisibleBorder"></div>
+		<div class="flex-container-column invisibleBorder">
+			<button
+				id="spaceFindAgent"
+				class="spaceFindAgent spaceText"
+				style="display: none"
+			>
+				Validate token
+			</button>
+		</div>
+		<div class="flex-container-column invisibleBorder"></div>
+	</div>
 </div>
