@@ -1,0 +1,28 @@
+.spaceSubMenu{
+	display: none;
+	border-top: none;
+	border: 1px solid #ccc;
+	padding: 6px 12px;
+	margin-inline: 50px;
+}
+
+.spaceMenuButton {
+	cursor: pointer;
+	background-color: inherit;
+	padding: 14px 16px;
+	border: none;
+	outline: none;
+	transition: 0.5s;
+}
+
+.spaceMenuButton:hover{
+	background-color: #808080;
+}
+
+.spaceMenuButton.active {
+	background-color: #c0c0c0;
+}
+
+.spaceMenu .spaceMenuButton{
+	margin: 5px;
+}
