@@ -1,0 +1,26 @@
+{
+  "name": "spacetraders",
+  "version": "1.0.0",
+  "description": "Using only HTML, CSS, JavaScript(client-side) and PHP(server-side) I plan to create a simple but complete GUI for the API game SpaceTraders, avoiding the use of frameworks as much as possible, as an experiment\"",
+  "main": "index.js",
+  "scripts": {
+    "dev": "live-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/SergioBaldomeroBeltranSantiago/SpaceTraders.git"
+  },
+  "keywords": [
+    "SpaceTraders;",
+    "GUI"
+  ],
+  "author": "Sergio Baldomero Beltran Santiago",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SergioBaldomeroBeltranSantiago/SpaceTraders/issues"
+  },
+  "homepage": "https://github.com/SergioBaldomeroBeltranSantiago/SpaceTraders#readme",
+  "dependencies": {
+    "livereload": "^0.9.3"
+  }
+}
