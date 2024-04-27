@@ -1,2 +1,17 @@
-/.angular
+#Node_modules . _.
 /node_modules
+
+#Log files
+.log
+
+#Temp files
+*.tmp
+
+#Enviroment variables
+.env
+
+#No building allowed
+/build
+
+#Ignoring dependency lock files
+package-lock.json
