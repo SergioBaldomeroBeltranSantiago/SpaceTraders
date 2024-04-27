@@ -1,4 +1,4 @@
-.spaceBackground{
+.spaceBackground {
 	margin: 0;
 	padding: 0;
 	background-color: #000;
@@ -24,7 +24,7 @@
 	width: 100vw;
 }
 
-.spaceText{
+.spaceText {
 	color: #fff;
 	font-family: "Courier New", Courier, monospace;
 	font-size: large;
@@ -37,6 +37,7 @@
 
 .flex-container-row {
 	display: flex;
+	min-width: 600px;
 }
 
 .flex-container-column {
@@ -46,4 +47,12 @@
 	text-align: center;
 	align-items: center;
 	margin-inline: 50px;
+}
+
+.flex-container-column-secondary{
+	flex: 0.1;
+}
+
+.flex-container-column-main {
+	flex: 2;
 }
