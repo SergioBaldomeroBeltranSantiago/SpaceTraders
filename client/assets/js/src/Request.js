@@ -34,11 +34,11 @@ export default class Requests {
      * Use this method to hit endpoints that require the authorization token.
      * @param {String} token the authorization token for the agent
      * @param {string} endpoint the API endpoint to hit. Example: '/my/agent'
-     * @param {Object} body the request object
+     * @param {Object} body the request object. Default is null
      * @param {string} [method='POST'] the method to use. Default is POST
      * @returns {Promise} a promises that can be resolved. Use then() as usual
      * */
-    sendAuth(token, endpoint, body, method = 'POST') {
+    sendAuth(token, endpoint, body = null, method = 'POST') {
 
         const options = {
             method: method,
@@ -46,7 +46,7 @@ export default class Requests {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
             },
-            body: JSON.stringify(body)
+            body: (body != null) ? JSON.stringify(body) : ''
         }
 
         const URL = this.#BASE_URL + endpoint
