@@ -5,29 +5,52 @@
 export default class Requests {
 
     #BASE_URL = 'https://api.spacetraders.io/v2'
-    
-    constructor() {}
 
-    /** 
-     * Send a request to the endpoint with body as argument
-     * @param {String} endpoint the API endpoint to hit.
-     * @param {Object} body the request object
-     * @param {String} [method='POST'] the method to use. Default is POST
-     * @returns {Promise} a promise that resolves with the response body
-     * */
-    async send(endpoint, body, method = 'POST') {
-        // build options object
+    constructor() { }
+    
+    /**
+     * Send a GET request to the endpoint with agent token
+     * @param {String} token the authorization token for the agent
+     * @param {String} endpoint the API endpoint to hit. Example: '/my/agent'
+     * @returns a promise that resolves with the response body
+     */
+    async get(token, endpoint) {
         const options = {
-            method: method,
-            headers: method == 'POST' ? {
+            headers: {
                 'Content-Type': 'application/json',
-            } : '',
+                'Authorization': `Bearer ${token}`
+            },
+        }
+
+        const URL = this.#BASE_URL + endpoint
+
+        const res = await fetch(URL, options)
+        if (!res.ok) {
+            const { error } = await res.json()
+            throw new Error(`\nCode: ${error.code}\nMessage: ${error.message}\n${(error.data) ? 'Data: ' + JSON.stringify(error.data) : ''}`)
+        }
+        return await res.json()
+    }
+    
+    /**
+     * Send a POST request to the endpoint with authorization token
+     * @param {String} token the authorization token for the agent
+     * @param {String} endpoint the API endpoint to hit. Example: '/my/agent'
+     * @param {Object} body the request object
+     * @returns a promise that resolves with the response body
+     */
+    async post(token, endpoint, body) {
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
             body: JSON.stringify(body)
         }
-        
+
         const URL = this.#BASE_URL + endpoint
-        
-        // send request to endpoint
+
         const res = await fetch(URL, options)
         if (!res.ok) {
             const { error } = await res.json()
@@ -36,24 +59,19 @@ export default class Requests {
         return await res.json()
     }
 
-    /** 
-     * Send a request with token to the endpoint with body as argument.
-     * Use this method to hit endpoints that require the authorization token.
-     * @param {String} token the authorization token for the agent
+    /**
+     * Send a POST request to the endpoint
      * @param {String} endpoint the API endpoint to hit. Example: '/my/agent'
-     * @param {Object} body the request object. Default is null
-     * @param {String} [method='POST'] the method to use. Default is POST
-     * @returns {Promise} a promise that resolves with the response body
-     * */
-    async sendAuth(token, endpoint, body = null, method = 'POST') {
-
+     * @param {Object} body the request object
+     * @returns a promise that resolves with the response body
+     */
+    async postGuest(endpoint, body) {
         const options = {
-            method: method,
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
             },
-            body: (body != null) ? JSON.stringify(body) : ''
+            body: JSON.stringify(body)
         }
 
         const URL = this.#BASE_URL + endpoint

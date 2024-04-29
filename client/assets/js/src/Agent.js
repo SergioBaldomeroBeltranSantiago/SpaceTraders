@@ -40,7 +40,7 @@ export default class AgentManager {
         const trimmedCallsign = callsign.trim()
         const trimmedFaction = faction.trim()
         
-        const body = await this.#requestManager.send('/register', {
+        const body = await this.#requestManager.postGuest('/register', {
             symbol: trimmedCallsign,
             faction: trimmedFaction,
         })
@@ -50,6 +50,16 @@ export default class AgentManager {
 
         this.#saveAgentToStorage(symbol, token)
         console.log('Agent created');
+    }
+
+    /**
+     * Retrieves information about a given agent
+     * @param {String} token the token unique to the agent
+     */
+    getAgentInfo(token) {
+        this.#requestManager.get(token, '/my/agent').then(body =>
+            console.log(body)
+        )
     }
 
     /**
