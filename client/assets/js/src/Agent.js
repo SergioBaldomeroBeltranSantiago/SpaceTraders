@@ -125,5 +125,3 @@ class Agent {
         this.token = token
     }
 }
-
-new Agent()
