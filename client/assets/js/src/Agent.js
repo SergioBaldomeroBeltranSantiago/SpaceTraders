@@ -57,7 +57,7 @@ export default class AgentManager {
      * @param {String} token the token unique to the agent
      */
     getAgentInfo(token) {
-        this.#requestManager.get(token, '/my/agent').then(body =>
+        this.#requestManager.get('/my/agent', token).then(body =>
             console.log(body)
         )
     }
@@ -80,7 +80,7 @@ export default class AgentManager {
     }
 
     /**
-     * 
+     * Save callsign and token to local storage
      * @param {String} callsign the username... I guess?
      * @param {String} token the unique token for this agent
      */

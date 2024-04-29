@@ -10,16 +10,26 @@ export default class Requests {
     
     /**
      * Send a GET request to the endpoint with agent token
-     * @param {String} token the authorization token for the agent
      * @param {String} endpoint the API endpoint to hit. Example: '/my/agent'
+     * @param {String} token the authorization token for the agent. If token is null, it will send a typical GET request. Default is null
      * @returns a promise that resolves with the response body
      */
-    async get(token, endpoint) {
-        const options = {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            },
+    async get(endpoint, token = null) {
+        let options
+        
+        if (token != null) {
+            options = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+            }
+        } else {
+            options = {
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            }
         }
 
         const URL = this.#BASE_URL + endpoint
