@@ -32,31 +32,33 @@ export default class AgentManager {
     }
 
     /**
-     * Create a new agent and return token if successful
+     * Create a new agent and save to storage
      * @param {String} callsign the username for the new agent
      * @param {String} faction the faction
      */
-    createAgent(callsign, faction) {
+    async createAgent(callsign, faction) {
         const trimmedCallsign = callsign.trim()
         const trimmedFaction = faction.trim()
         
-        this.#requestManager.send('/register', {
+        const body = await this.#requestManager.send('/register', {
             symbol: trimmedCallsign,
             faction: trimmedFaction,
-          })
-          .then(res => res.json())
-          .then(json => {
-            console.log(json);
-            const { token, agent: { symbol } } = json.data
+        })
+    
+        
+        const { token, agent: { symbol } } = body.data
 
-            this.#saveAgentToStorage(symbol, token)
-            console.log('Agent created');
-          })
+        this.#saveAgentToStorage(symbol, token)
+        console.log('Agent created');
     }
 
+    /**
+     * Retrieve the agents saved in local storage
+     * @returns {Array} an array containing the agents
+     */
     getAgents() {
         const a = window.localStorage.getItem(this.#key)
-        return  (a != null) ? JSON.parse(a).agents : null
+        return  (a != null) ? JSON.parse(a).agents : []
     }
 
     /**
