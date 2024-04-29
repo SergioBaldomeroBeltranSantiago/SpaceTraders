@@ -68,7 +68,9 @@ export default class AgentManager {
      */
     getAgents() {
         const a = window.localStorage.getItem(this.#key)
-        return  (a != null) ? JSON.parse(a).agents : []
+        const agents = (a != null) ? JSON.parse(a).agents : []
+
+        return agents.map(agent => new Agent(agent.callsign, agent.token))
     }
 
     /**
@@ -93,7 +95,11 @@ export default class AgentManager {
         // otherwise create a new one using the schema described above
         const agents = (a != null) ? JSON.parse(a) : { agents: [] }
 
-        const newAgent = { [callsign]: token}
+        //const newAgent = { [callsign]: token}
+        const newAgent = {
+            callsign: callsign,
+            token: token
+        }
 
         agents.agents.push(newAgent)
 
@@ -102,12 +108,22 @@ export default class AgentManager {
     }
 }
 
+/**
+ * Represents a agent in game.
+ */
 class Agent {
     callsign
     token
 
+    /**
+     * 
+     * @param {String} callsign the agent's name
+     * @param {String} token the unique token that identifies the agent
+     */
     constructor(callsign, token) {
         this.callsign = callsign
         this.token = token
     }
 }
+
+new Agent()
