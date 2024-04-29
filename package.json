@@ -22,5 +22,8 @@
   "homepage": "https://github.com/SergioBaldomeroBeltranSantiago/SpaceTraders#readme",
   "dependencies": {
     "live-server": "^1.2.2"
+  },
+  "devDependencies": {
+    "jsdoc": "^4.0.2"
   }
 }

@@ -5,10 +5,15 @@ import Requests from "./Request.js"
  */
 export default class AgentManager {
     /**
-     * Key used to saved and retrieve agents to browser localStorage
+     * @property key used to save and retrieve agents from browser local storage
+     * @private
      */
     #key = 'agents'
     
+    /**
+     * @property a request manager to handle API requests
+     * @private
+     */
     #requestManager = null
 
     /*
@@ -26,7 +31,9 @@ export default class AgentManager {
      */
     currentAgent = null
     
-
+    /**
+     * @class
+     */
     constructor() {
         this.#requestManager = new Requests()
     }
@@ -109,16 +116,16 @@ export default class AgentManager {
 }
 
 /**
- * Represents a agent in game.
+ * 
  */
 class Agent {
     callsign
     token
 
     /**
-     * 
      * @param {String} callsign the agent's name
      * @param {String} token the unique token that identifies the agent
+     * @class
      */
     constructor(callsign, token) {
         this.callsign = callsign

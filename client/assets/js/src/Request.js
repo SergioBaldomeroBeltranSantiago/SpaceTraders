@@ -12,7 +12,7 @@ export default class Requests {
      * Send a GET request to the endpoint with agent token
      * @param {String} endpoint the API endpoint to hit. Example: '/my/agent'
      * @param {String} token the authorization token for the agent. If token is null, it will send a typical GET request. Default is null
-     * @returns a promise that resolves with the response body
+     * @returns {Promise} a promise that resolves with the response body
      */
     async get(endpoint, token = null) {
         let options
@@ -47,7 +47,7 @@ export default class Requests {
      * @param {String} token the authorization token for the agent
      * @param {String} endpoint the API endpoint to hit. Example: '/my/agent'
      * @param {Object} body the request object
-     * @returns a promise that resolves with the response body
+     * @returns {Promise} a promise that resolves with the response body
      */
     async post(token, endpoint, body) {
         const options = {
@@ -73,7 +73,7 @@ export default class Requests {
      * Send a POST request to the endpoint
      * @param {String} endpoint the API endpoint to hit. Example: '/my/agent'
      * @param {Object} body the request object
-     * @returns a promise that resolves with the response body
+     * @returns {Promise} a promise that resolves with the response body
      */
     async postGuest(endpoint, body) {
         const options = {
