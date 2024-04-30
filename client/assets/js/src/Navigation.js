@@ -4,7 +4,7 @@ import Requests from "./Request.js";
  * Manage systems, waypoints and navigation.
  * This class needs a agent token so we don't have to pass it every request.
  */
-export default class NavigationManager{
+export default class NavigationManager {
     #requestManager
     #token
 

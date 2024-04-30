@@ -4,7 +4,8 @@
   "description": "Using only HTML, CSS, JavaScript(client-side) and PHP(server-side) I plan to create a simple but complete GUI for the API game SpaceTraders, avoiding the use of frameworks as much as possible, as an experiment\"",
   "main": "index.js",
   "scripts": {
-    "client_dev": "cd client || pushd client && live-server"
+    "client_dev": "cd client || pushd client && live-server",
+    "jsdoc": "jsdoc ./client/assets/js/src/"
   },
   "repository": {
     "type": "git",
