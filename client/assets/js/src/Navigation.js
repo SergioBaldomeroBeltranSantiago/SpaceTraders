@@ -60,11 +60,34 @@ export default class NavigationManager {
         return this.#requestManager.post(`/my/ships/${ship}/dock`, this.#token)
     }
 
-    warp(ship, symbol) {
+    /**
+     * Command a ship to warp to a given system.
+     * Warping your ship moves it into interdimensional space, and it behaves very similar to normal waypoint travel in that it takes time and consumes normal fuel.
+     * 
+     * @param {string} ship the ship symbol to command
+     * @param {string} system the symbol of the target system
+     * @returns {Promise}
+     */
+    warp(ship, system) {
         const body = {
-            systemSymbol: symbol,
+            systemSymbol: system,
           }
         return this.#requestManager.post(`/my/ships/${ship}/warp`, this.#token, body)
+    }
+
+    /**
+     * Command a ship to jump to a given system.
+     * Jumping a ship however is instantaneous, but it requires a jump drive and a unit of antimatter.
+     * 
+     * @param {string} ship the ship symbol to command
+     * @param {string} system the symbol of the target system
+     * @returns {Promise}
+     */
+    jump(ship, system) {
+        const body = {
+            systemSymbol: system,
+          }
+        return this.#requestManager.post(`/my/ships/${ship}/jump`, this.#token, body)
     }
 
     /**
