@@ -60,6 +60,13 @@ export default class NavigationManager {
         return this.#requestManager.post(`/my/ships/${ship}/dock`, this.#token)
     }
 
+    warp(ship, symbol) {
+        const body = {
+            systemSymbol: symbol,
+          }
+        return this.#requestManager.post(`/my/ships/${ship}/warp`, this.#token, body)
+    }
+
     /**
      * Set flight mode for a ship.
      * 
