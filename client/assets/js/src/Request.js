@@ -59,7 +59,7 @@ export default class Requests {
      * @function
      * @async
      */
-    async post(token, endpoint, body) {
+    async post(endpoint, token, body) {
         const options = {
             method: 'POST',
             headers: {

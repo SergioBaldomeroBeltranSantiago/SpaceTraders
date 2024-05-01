@@ -35,4 +35,28 @@ export default class NavigationManager {
     getWaypoint(system) {
         return this.#requestManager.get(`/systems/${system}/waypoints`, this.#token)
     }
+
+    /**
+     * Command a ship to orbit.
+     * A ship must be orbiting before it can travel.
+     * 
+     * @param {string} ship the ship symbol to command
+     * @returns {Promise}
+     */
+    orbit(ship) {
+        return this.#requestManager.post(`/my/ships/${ship}/orbit`, this.#token)
+    }
+
+    /**
+     * Command a ship to dock.
+     * Docked ships cannot travel.
+     * They must be sent to orbit before they can travel.
+     * Use the function orbit() to send a ship to orbit.
+     * 
+     * @param {string} ship the ship symbol to command
+     * @return {Promise}
+     */
+    dock(ship) {
+        return this.#requestManager.post(`/my/ships/${ship}/dock`, this.#token)
+    }
 }
