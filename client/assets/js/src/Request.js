@@ -51,8 +51,8 @@ export default class Requests {
     /**
      * Send a POST request to the endpoint with authorization token
      * 
-     * @param {String} token the authorization token for the agent
      * @param {String} endpoint the API endpoint to hit. Example: '/my/agent'
+     * @param {String} token the authorization token for the agent
      * @param {Object} body the request object
      * @returns {Promise} a promise that resolves with the response body
      * @throws a generic error explaining what went wrong. It contains the error code, the message and the data if any was returned by the endpoint.
@@ -94,6 +94,34 @@ export default class Requests {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(body)
+        }
+
+        const URL = this.#BASE_URL + endpoint
+
+        const res = await fetch(URL, options)
+        if (!res.ok) {
+            const { error } = await res.json()
+            throw new Error(`\nCode: ${error.code}\nMessage: ${error.message}\n${(error.data) ? 'Data: ' + JSON.stringify(error.data) : ''}`)
+        }
+        return await res.json()
+    }
+
+    /**
+     * Send a PATCH request to the endpoint with authorization token.
+     * 
+     * @param {string} endpoint the API endpoint to hit. Example: '/my/agent'
+     * @param {string} token the authorization token for the agent
+     * @param {Object} body the request object
+     * @returns {Promise} a promise that resolves with the response body
+     */
+    async patch(endpoint, token, body) {
+        const options = {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify(body)
         }

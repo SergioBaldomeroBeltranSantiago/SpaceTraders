@@ -60,7 +60,23 @@ export default class NavigationManager {
         return this.#requestManager.post(`/my/ships/${ship}/dock`, this.#token)
     }
 
-    
+    /**
+     * Set flight mode for a ship.
+     * 
+     * @param {string} ship the ship symbol to command
+     * @param {FlightMode} flightMode the flight mode
+     * @returns {Promise}
+     */
+    setFlightMode(ship, flightMode) {
+
+        if (!(flightMode in FlightMode)) throw TypeError('Incorrect flight mode')
+
+        const body = {
+            flightMode: flightMode,
+          }
+
+        return this.#requestManager.patch(`/my/ships/${ship}/nav`, this.#token, body)
+    }
 }
 
 /**
