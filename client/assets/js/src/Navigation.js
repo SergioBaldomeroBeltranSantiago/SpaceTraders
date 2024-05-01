@@ -59,4 +59,46 @@ export default class NavigationManager {
     dock(ship) {
         return this.#requestManager.post(`/my/ships/${ship}/dock`, this.#token)
     }
+
+    
+}
+
+/**
+ * Enum class for flight mode.
+ * 
+ * @enum {string}
+ */
+class FlightMode {
+
+    /**
+     * Cruise flight mode is the default mode for all ships. It consumes fuel at a normal rate and travels at a normal speed.
+     * @readonly
+     */
+    static get CRUISE() {
+        return 'CRUISE'
+    }
+
+    /**
+     * Burn flight mode consumes fuel at a faster rate and travels at a faster speed.
+     * @readonly
+     */
+    static get BURN() {
+        return 'BURN'
+    }
+
+    /**
+     * Drift flight mode consumes the least fuel and travels at a much slower speed. Drift mode is useful when your ship has run out of fuel and you need to conserve what little fuel you have left.
+     * @readonly
+     */
+    static get DRIFT() {
+        return 'DRIFT'
+    }
+
+    /**
+     * Stealth flight mode runs with systems at a minimum, making it difficult to detect. It consumes fuel at a normal rate but travels at a reduced speed.
+     * @readonly
+     */
+    static get STEALTH() {
+        return 'STEALTH'
+    }
 }
