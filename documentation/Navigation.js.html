@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Navigation.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Navigation.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import Requests from "./Request.js";
+
+/**
+ * Manage systems, waypoints and navigation.
+ * This class needs a agent token so we don't have to pass it every request.
+ */
+export default class NavigationManager {
+    #requestManager
+    #token
+
+    /**
+     * @param {String} token the agent's token that will be used for futher requests
+     * @class
+     */
+    constructor(token) {
+        this.#requestManager = new Requests()
+        this.#token = token
+    }
+
+    /**
+     * Get the systems available in the universe.
+     * @returns {Promise}
+     * @todo Return a proper data structure for the system
+     */
+    getSystems() {
+        return this.#requestManager.get('/systems', this.#token)
+    }
+
+    /**
+     * Get the waypoints for a given system.
+     * @param {String} system the system to look for waypoints
+     * @return {Promise}
+     * @todo Return a proper data structure for the waypoints
+     */
+    getWaypoint(system) {
+        return this.#requestManager.get(`/systems/${system}/waypoints`, this.#token)
+    }
+
+    /**
+     * Command a ship to orbit.
+     * A ship must be orbiting before it can travel.
+     * 
+     * @param {string} ship the ship symbol to command
+     * @returns {Promise}
+     */
+    orbit(ship) {
+        return this.#requestManager.post(`/my/ships/${ship}/orbit`, this.#token)
+    }
+
+    /**
+     * Command a ship to dock.
+     * Docked ships cannot travel.
+     * They must be sent to orbit before they can travel.
+     * Use the function orbit() to send a ship to orbit.
+     * 
+     * @param {string} ship the ship symbol to command
+     * @return {Promise}
+     */
+    dock(ship) {
+        return this.#requestManager.post(`/my/ships/${ship}/dock`, this.#token)
+    }
+
+    /**
+     * Command a ship to warp to a given system.
+     * Warping your ship moves it into interdimensional space, and it behaves very similar to normal waypoint travel in that it takes time and consumes normal fuel.
+     * 
+     * @param {string} ship the ship symbol to command
+     * @param {string} system the symbol of the target system
+     * @returns {Promise}
+     */
+    warp(ship, system) {
+        const body = {
+            systemSymbol: system,
+          }
+        return this.#requestManager.post(`/my/ships/${ship}/warp`, this.#token, body)
+    }
+
+    /**
+     * Command a ship to jump to a given system.
+     * Jumping a ship however is instantaneous, but it requires a jump drive and a unit of antimatter.
+     * 
+     * @param {string} ship the ship symbol to command
+     * @param {string} system the symbol of the target system
+     * @returns {Promise}
+     */
+    jump(ship, system) {
+        const body = {
+            systemSymbol: system,
+          }
+        return this.#requestManager.post(`/my/ships/${ship}/jump`, this.#token, body)
+    }
+
+    /**
+     * Set flight mode for a ship.
+     * 
+     * @param {string} ship the ship symbol to command
+     * @param {FlightMode} flightMode the flight mode
+     * @returns {Promise}
+     */
+    setFlightMode(ship, flightMode) {
+
+        if (!(flightMode in FlightMode)) throw TypeError('Incorrect flight mode')
+
+        const body = {
+            flightMode: flightMode,
+          }
+
+        return this.#requestManager.patch(`/my/ships/${ship}/nav`, this.#token, body)
+    }
+}
+
+/**
+ * Enum class for flight mode.
+ * 
+ * @enum {string}
+ */
+class FlightMode {
+
+    /**
+     * Cruise flight mode is the default mode for all ships. It consumes fuel at a normal rate and travels at a normal speed.
+     * @readonly
+     */
+    static get CRUISE() {
+        return 'CRUISE'
+    }
+
+    /**
+     * Burn flight mode consumes fuel at a faster rate and travels at a faster speed.
+     * @readonly
+     */
+    static get BURN() {
+        return 'BURN'
+    }
+
+    /**
+     * Drift flight mode consumes the least fuel and travels at a much slower speed. Drift mode is useful when your ship has run out of fuel and you need to conserve what little fuel you have left.
+     * @readonly
+     */
+    static get DRIFT() {
+        return 'DRIFT'
+    }
+
+    /**
+     * Stealth flight mode runs with systems at a minimum, making it difficult to detect. It consumes fuel at a normal rate but travels at a reduced speed.
+     * @readonly
+     */
+    static get STEALTH() {
+        return 'STEALTH'
+    }
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Agent.html">Agent</a></li><li><a href="Session.html">Session</a></li><li><a href="module.exports.html">exports</a></li></ul><h3>Global</h3><ul><li><a href="global.html#FlightMode">FlightMode</a></li><li><a href="global.html#createAgent">createAgent</a></li><li><a href="global.html#dock">dock</a></li><li><a href="global.html#get">get</a></li><li><a href="global.html#getAgent">getAgent</a></li><li><a href="global.html#getAgents">getAgents</a></li><li><a href="global.html#getSystems">getSystems</a></li><li><a href="global.html#getWaypoint">getWaypoint</a></li><li><a href="global.html#jump">jump</a></li><li><a href="global.html#orbit">orbit</a></li><li><a href="global.html#patch">patch</a></li><li><a href="global.html#post">post</a></li><li><a href="global.html#postGuest">postGuest</a></li><li><a href="global.html#setCurrentAgent">setCurrentAgent</a></li><li><a href="global.html#setFlightMode">setFlightMode</a></li><li><a href="global.html#warp">warp</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Mon May 06 2024 22:10:10 GMT+0000 (Coordinated Universal Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
