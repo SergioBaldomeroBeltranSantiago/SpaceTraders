@@ -1,4 +1,7 @@
-//JavaScript, injecta componentes a la pagina, algo similar a como ReactJS o angular manejar los componentes modularizados
+/*
+JavaScript, injecta componentes a la pagina, algo similar a como 
+ReactJS o angular manejar los componentes modularizados
+*/
 function fetchHTML(templatePath, containerId) {
 	fetch(templatePath)
 		.then((response) => response.text())
@@ -10,7 +13,10 @@ function fetchHTML(templatePath, containerId) {
 		});
 }
 
-//JavaScript, una funcion para cambiar los menus visibles cuando el usuario hace click en uno de los botones del menu
+/*
+JavaScript, una funcion para cambiar los menus visibles cuando el usuario 
+hace click en uno de los botones del menu
+*/
 
 function switchMenuOption(evt, selectedOption) {
 	var index, optionsList, optionsButton;
@@ -33,8 +39,8 @@ function switchMenuOption(evt, selectedOption) {
 }
 
 /*
-JavaScript, una funcion que chequea el valor de los campos donde el usuario puede incluir su token de agente para acceder a su progreso de juego.
-Esta funcion solo revela un botón para validar el token con la API del juego
+JavaScript, una funcion que chequea el valor de los campos donde el usuario 
+puede incluir su token de agente para acceder a su progreso de juego.
 */
 function checkInputs() {
 	var textInput = document.getElementById("spaceTokenInputText");
