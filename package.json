@@ -25,6 +25,7 @@
     "live-server": "^1.2.2"
   },
   "devDependencies": {
-    "jsdoc": "^4.0.2"
+    "jsdoc": "^4.0.2",
+    "prettier": "^3.2.5"
   }
 }
