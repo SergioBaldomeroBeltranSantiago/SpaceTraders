@@ -68,12 +68,8 @@ export default class AgentManager {
      * @param {String} token the token unique to the agent
      * @function
      */
-    getAgent(token) {
-        
-        this.#requestManager.get('/my/agent', token).then(body =>
-            console.log(body)
-        )
-
+    async getAgent(token) {
+        const { data: agent } = await this.#requestManager.get('/my/agent', token)
         return agent
     }
 

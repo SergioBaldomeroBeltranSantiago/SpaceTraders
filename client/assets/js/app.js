@@ -1,4 +1,3 @@
-import AgentManager from "./src/Agent.js";
-import NavigationManager from "./src/Navigation.js";
+import SpaceTradersClient from "./src/SpaceTradersClient.js";
 
-window.agentManager = new AgentManager()
+window.stclient = new SpaceTradersClient()

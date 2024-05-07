@@ -7,7 +7,7 @@ export default class Requests {
     #BASE_URL = 'https://api.spacetraders.io/v2'
 
     /**
-     * @class
+     * Create a Request manager.
      */
     constructor() { }
     

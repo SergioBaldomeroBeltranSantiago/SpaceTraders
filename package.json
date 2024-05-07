@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "client_dev": "cd client || pushd client && live-server",
-    "jsdoc": "jsdoc ./client/assets/js/src/"
+    "jsdoc": "jsdoc -d documentation ./client/assets/js/src/"
   },
   "repository": {
     "type": "git",
