@@ -17,10 +17,21 @@ function validateToken() {
 		};
 
 		fetch("https://api.spacetraders.io/v2/my/agent", payload)
-			.then((response) => response.json())
+			.then((response) => {
+				if (!response.ok) {
+					throw new Error(
+						"Token not found. Status:" + response.status,
+					);
+				}
+				response.json();
+			})
 			.then((response) => {
 				document.getElementById("tokenHolder").innerText = tokenID;
+				alert("Token found, redirecting to menu");
 			})
-			.catch((err) => console.error(err));
+			.catch((error) => {
+				console.error(error);
+				alert("Token was not found, please try again");
+			});
 	}
 }
