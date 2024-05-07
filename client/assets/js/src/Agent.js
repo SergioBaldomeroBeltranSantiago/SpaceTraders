@@ -9,7 +9,7 @@ export default class AgentManager {
      * @private
      */
     #key = 'agents'
-    
+
     /**
      * @property a request manager to handle API requests
      * @private
@@ -30,7 +30,7 @@ export default class AgentManager {
      * the current agent for this session. Its token will be used for futher requests
      */
     currentAgent = null
-    
+
     /**
      * @class
      */
@@ -49,13 +49,13 @@ export default class AgentManager {
     async createAgent(callsign, faction) {
         const trimmedCallsign = callsign.trim()
         const trimmedFaction = faction.trim()
-        
+
         const body = await this.#requestManager.postGuest('/register', {
             symbol: trimmedCallsign,
             faction: trimmedFaction,
         })
-    
-        
+
+
         const { token, agent: { symbol } } = body.data
 
         this.#saveAgentToStorage(symbol, token)
@@ -69,7 +69,8 @@ export default class AgentManager {
      * @function
      */
     async getAgent(token) {
-        const { data: agent } = await this.#requestManager.get('/my/agent', token)
+        const { data } = await this.#requestManager.get('/my/agent', token)
+        const agent = new Agent(token, data)
         return agent
     }
 
@@ -129,14 +130,48 @@ export default class AgentManager {
  * Represents an agent in game.
  */
 class Agent {
+    #accountId
+    #token
+    #symbol
+    #headquarters
+    #startingFaction
+    #shipCount
+    #credits
+
+    get accountId() {
+        return this.#accountId
+    }
+    get token() {
+        return this.#token
+    }
+    get symbol() {
+        return this.#symbol
+    }
+    get headquarters() {
+        return this.#headquarters
+    }
+    get startingFaction() {
+        return this.#startingFaction
+    }
+    get shipCount() {
+        return this.#shipCount
+    }
+    get credits() {
+        return this.#credits
+    }
 
     /**
      * @param {String} callsign the agent's name
      * @param {String} token the unique token that identifies the agent
      * @class
      */
-    constructor(callsign, token) {
-        this.callsign = callsign
-        this.token = token
+    constructor(token, { accountId, symbol, headquarters, startingFaction, shipCount, credits }) {
+        this.#token = token
+        this.#accountId = accountId
+        this.#symbol = symbol
+        this.#headquarters = headquarters
+        this.#startingFaction = startingFaction
+        this.#shipCount = shipCount
+        this.#credits = credits
     }
 }

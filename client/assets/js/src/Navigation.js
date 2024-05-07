@@ -22,8 +22,9 @@ export default class NavigationManager {
      * @returns {Promise}
      * @todo Return a proper data structure for the system
      */
-    getSystems() {
-        return this.#requestManager.get('/systems', this.#token)
+    async getSystems() {
+        const { data: systems } = await this.#requestManager.get('/systems', this.#token)
+        return systems
     }
 
     /**
@@ -32,8 +33,16 @@ export default class NavigationManager {
      * @return {Promise}
      * @todo Return a proper data structure for the waypoints
      */
-    getWaypoint(system) {
-        return this.#requestManager.get(`/systems/${system}/waypoints`, this.#token)
+    async getWaypoints(system) {
+        const { data: waypoints } = await this.#requestManager.get(`/systems/${system}/waypoints`, this.#token)
+        return waypoints
+    }
+
+    async getShips() {
+        const { data: ships } = await this.#requestManager.get('/my/ships', this.#token)
+        return ships.map(it => {
+            return new Ship(it)
+        })
     }
 
     /**
@@ -71,7 +80,7 @@ export default class NavigationManager {
     warp(ship, system) {
         const body = {
             systemSymbol: system,
-          }
+        }
         return this.#requestManager.post(`/my/ships/${ship}/warp`, this.#token, body)
     }
 
@@ -86,7 +95,7 @@ export default class NavigationManager {
     jump(ship, system) {
         const body = {
             systemSymbol: system,
-          }
+        }
         return this.#requestManager.post(`/my/ships/${ship}/jump`, this.#token, body)
     }
 
@@ -103,9 +112,77 @@ export default class NavigationManager {
 
         const body = {
             flightMode: flightMode,
-          }
+        }
 
         return this.#requestManager.patch(`/my/ships/${ship}/nav`, this.#token, body)
+    }
+}
+
+/**
+ * Class representing a ship.
+ */
+class Ship {
+    #cargo
+    #cooldown
+    #crew
+    #engine
+    #frame
+    #fuel
+    #modules
+    #mounts
+    #nav
+    #reactor
+    #registration
+
+    get cargo() {
+        return this.#cargo
+    }
+    get cooldown() {
+        return this.#cooldown
+    }
+    get crew() {
+        return this.#crew
+    }
+    get engine() {
+        return this.#engine
+    }
+    get frame() {
+        return this.#frame
+    }
+    get fuel() {
+        return this.#fuel
+    }
+    get modules() {
+        return this.#modules
+    }
+    get mounts() {
+        return this.#mounts
+    }
+    get nav() {
+        return this.#nav
+    }
+    get reactor() {
+        return this.#reactor
+    }
+    get registration() {
+        return this.#registration
+    }
+
+    /**
+     * 
+     */
+    constructor({ cargo, cooldown, crew, engine, frame, fuel, modules, mounts, nav, reactor, registration }) {
+        this.#cargo = cargo
+        this.#cooldown = cooldown
+        this.#crew = crew
+        this.#engine = engine
+        this.#frame = frame
+        this.#fuel = fuel
+        this.#modules = modules
+        this.#mounts = mounts
+        this.#nav = nav
+        this.#reactor = reactor
+        this.#registration = registration
     }
 }
 

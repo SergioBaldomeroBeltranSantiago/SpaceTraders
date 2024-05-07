@@ -1,5 +1,5 @@
 import AgentManager from "./Agent.js";
-import NavegationManager from "./Navigation.js";
+import NavigationManager from "./Navigation.js";
 
 export default class SpaceTradersClient {
     #agentManager = null
@@ -15,7 +15,7 @@ export default class SpaceTradersClient {
         return agents
     }
     
-    async newSession(token) {
+    async startSession(token) {
         const agent = await this.#agentManager.getAgent(token)
         this.#session = new Session(agent)
         return this.#session
@@ -35,15 +35,19 @@ export default class SpaceTradersClient {
  */
 class Session {
     #agent
-    #navegationManager
+    #navigationManager
     #factionManager
 
     constructor(agent) {
         this.#agent = agent
-        this.#navegationManager = new NavegationManager(agent.token)
+        this.#navigationManager = new NavigationManager(agent.token)
     }
 
     getAgentInfo() {
         return this.#agent
+    }
+
+    async getAgentShips() {
+        return await this.#navigationManager.getShips()
     }
 }
