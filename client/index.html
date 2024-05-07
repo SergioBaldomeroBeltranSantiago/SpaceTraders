@@ -21,20 +21,14 @@
 		<!-- Scripts que controlan las vistas del sitio web -->
 		<script src="assets/js/visualScripts.js"></script>
 
+		<!-- Scripts que manejan las llamadas a la API de SpaceTraders -->
+		<script src="assets/js/apiCallingScripts.js"></script>
+
 		<script>
 			fetchHTML("./templates/header.html", "header-container");
 			fetchHTML("./templates/menu.html", "menu-container");
 		</script>
 
-		<!--JavaScript, una funcion que chequea el valor de los campos donde el usuario puede incluir su token de agente para acceder a su progreso de juego, esta funcion solo revela un botón para validar el token con la API del juego -->
-		<script src="assets/js/checkInput.js"></script>
-
-		<!--JavaScript, una funcion para limpiar los archivos seleccionados de un input de tipo file -->
-		<script src="assets/js/cleanFiles.js"></script>
-
-		<!--JavaScript, la función se comunica con la API de SpaceTraders usando un token existente para obtener los datos del agente, si este agente es encontrado, se procederá a un menú diferente para controlar diferentes acciones-->
-		<script src="assets/js/validateToken.js"></script>
-		
 		<script src="assets/js/app.js" type="module"></script>
 	</body>
 </html>
