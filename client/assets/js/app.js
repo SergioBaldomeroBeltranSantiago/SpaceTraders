@@ -1,9 +1,3 @@
 import SpaceTradersClient from "./src/SpaceTradersClient.js";
 
 window.stclient = new SpaceTradersClient()
-
-const session = await stclient.startSession('eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZGVudGlmaWVyIjoiQ1lDTEVXQVZFIiwidmVyc2lvbiI6InYyLjIuMCIsInJlc2V0X2RhdGUiOiIyMDI0LTA0LTI4IiwiaWF0IjoxNzE1MTIyOTE0LCJzdWIiOiJhZ2VudC10b2tlbiJ9.IpxmAOjtrVQEVIkpRhc1OdRDQ8F4KDWE8quLeWYMNuxZw7vOorXzkZ3FmimKDFKUAuMP8H7rM7Y-CO3q2MDR_OAnnW3zmX06bJWMXf0kdumkQgLrRtqrJOB8Y_-eMA1hMohMu6aED7pw2vSsRr8Rvq-Ejj2Hrmt8CA40bPGLu3wCfJpklCjeR7_VhqKgY2GZvoVZToGXUO0A-3jauV4pKZ-RNIeDh3S_Jbjmnon-zar-IuQO8SIvcuwmN7I-rWoeV8759hi6hJsZFmwZ3Xt75YrlLAbYRBsIR8h8kfBSi1H6_0_-rEarSGlaCdGRfZFF7fIpOhFoXVyxG3mDt9G37w')
-
-const ships = await session.getAgentShips()
-
-window.ship = ships[0]
