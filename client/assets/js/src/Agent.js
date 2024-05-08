@@ -55,11 +55,11 @@ export default class AgentManager {
             faction: trimmedFaction,
         })
 
+        const { token, agent } = body.data
 
-        const { token, agent: { symbol } } = body.data
-
-        this.#saveAgentToStorage(symbol, token)
-        console.log('Agent created');
+        const a = new Agent(token, agent)
+        this.#saveAgentToStorage(agent.symbol, token)
+        return a
     }
 
     /**

@@ -10,6 +10,12 @@ export default class SpaceTradersClient {
         this.#agentManager = new AgentManager()
     }
 
+    async createAgent(callsign, faction) {
+        const agent = await this.#agentManager.createAgent(callsign, faction)
+        this.#session = new Session(agent)
+        return this.#session
+    }
+
     getAgents() {
         const agents = this.#agentManager.getAgents()
         return agents
