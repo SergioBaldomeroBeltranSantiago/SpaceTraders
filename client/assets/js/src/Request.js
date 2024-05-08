@@ -1,24 +1,24 @@
 /**
  * Class to manage requests to the endpoints.
  * Use this class to initiate any request.
+ * 
+ * The base URL is 'https://api.spacetraders.io/v2'
  */
-export default class Requests {
+class Requests {
 
     #BASE_URL = 'https://api.spacetraders.io/v2'
 
     /**
      * Create a Request manager.
+     * @class
      */
-    constructor() { }
+    constructor() {}
     
     /**
      * Send a GET request to the endpoint with agent token
-     * 
      * @param {String} endpoint the API endpoint to hit. Example: '/my/agent'
      * @param {String} token the authorization token for the agent. If token is null, it will send a typical GET request. Default is null
      * @returns {Promise} a promise that resolves with the response body
-     * @function
-     * @async
      */
     async get(endpoint, token = null) {
         let options
@@ -50,14 +50,11 @@ export default class Requests {
     
     /**
      * Send a POST request to the endpoint with authorization token
-     * 
      * @param {String} endpoint the API endpoint to hit. Example: '/my/agent'
      * @param {String} token the authorization token for the agent
      * @param {Object} body the request object
      * @returns {Promise} a promise that resolves with the response body
      * @throws a generic error explaining what went wrong. It contains the error code, the message and the data if any was returned by the endpoint.
-     * @function
-     * @async
      */
     async post(endpoint, token, body) {
         const options = {
@@ -81,13 +78,10 @@ export default class Requests {
 
     /**
      * Send a POST request to the endpoint
-     * 
      * @param {String} endpoint the API endpoint to hit. Example: '/my/agent'
      * @param {Object} body the request object
      * @returns {Promise} a promise that resolves with the response body
      * @throws a generic error explaining what went wrong. It contains the error code, the message and the data if any was returned by the endpoint.
-     * @function
-     * @async
      */
     async postGuest(endpoint, body) {
         const options = {
@@ -110,7 +104,6 @@ export default class Requests {
 
     /**
      * Send a PATCH request to the endpoint with authorization token.
-     * 
      * @param {string} endpoint the API endpoint to hit. Example: '/my/agent'
      * @param {string} token the authorization token for the agent
      * @param {Object} body the request object
@@ -137,6 +130,7 @@ export default class Requests {
     }
 }
 
+export default Requests
 /**
  * Example of error returned by the API
  * {

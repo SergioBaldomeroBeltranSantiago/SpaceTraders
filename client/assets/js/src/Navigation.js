@@ -140,6 +140,8 @@ class NavigationManager {
 
 /**
  * Class representing a ship.
+ * 
+ * Use this class to command and give order.
  */
 class Ship {
     #navigationManager
@@ -157,39 +159,75 @@ class Ship {
     #reactor
     #registration
 
+    /**
+     * Get the symbol that represents this ship.
+     */
     get symbol() {
         return this.#symbol
     }
+    /**
+     * Get information about the cargo and capacity.
+     */
     get cargo() {
         return this.#cargo
     }
+    /**
+     * Get the action cooldown for the ship.
+     */
     get cooldown() {
         return this.#cooldown
     }
+    /**
+     * Get information about the crew.
+     */
     get crew() {
         return this.#crew
     }
+    /**
+     * Get information about the engine equiped in the ship.
+     */
     get engine() {
         return this.#engine
     }
+    /**
+     * Get information about the ship frame.
+     */
     get frame() {
         return this.#frame
     }
+    /**
+     * Get information about the fuel.
+     */
     get fuel() {
         return this.#fuel
     }
+    /**
+     * Get information about the modules installed in the ship.
+     */
     get modules() {
         return this.#modules
     }
+    /**
+     * Get information about the mounts installed in the ship.
+     */
     get mounts() {
         return this.#mounts
     }
+    /**
+     * Get information about the navegation.
+     */
     get nav() {
         return this.#nav
     }
+    /**
+     * Get information about the reactor installed.
+     */
     get reactor() {
         return this.#reactor
     }
+    /**
+     * Get information about the ship's owner.
+     */
     get registration() {
         return this.#registration
     }
@@ -215,14 +253,28 @@ class Ship {
         this.#navigationManager = navigationManager
     }
 
+    /**
+     * Jump to the target system.
+     * @param {string} system the symbol of the target system.
+     * @returns 
+     */
     async jumpTo(system) {
         return await this.#navigationManager.jump(this.#symbol, system)
     }
 
+    /**
+     * Warp to the target system.
+     * @param {string} system the symbol of the target system.
+     * @returns 
+     */
     async warpTo(system) {
         return await this.#navigationManager.warp(this.#symbol, system)
     }
 
+    /**
+     * Command the ship to orbit.
+     * @returns {boolean} true if the operation succeded. False otherwise.
+     */
     async orbit() {
         try {
             const nav = await this.#navigationManager.orbit(this.#symbol)
@@ -234,6 +286,12 @@ class Ship {
         }
     }
 
+    /**
+     * Command the ship to dock.
+     * 
+     * This command may fail if the ship is in transit.
+     * @returns {boolean} true if the operation succeded. False otherwise.
+     */
     async dock() {
         try {
             const nav = await this.#navigationManager.dock(this.#symbol)
@@ -245,15 +303,29 @@ class Ship {
         }
     }
 
+    /**
+     * 
+     * @param {string} waypoint the symbol of the target waypoint.
+     * @returns {Object} an object with information about the navigation.
+     */
     async navigate(waypoint) {
         const nav = await this.#navigationManager.navigate(this.#symbol, waypoint)
         return nav
     }
 
+    /**
+     * Set the ship's flight mode.
+     * @param {FlightMode} flightMode the flight mode
+     * @returns 
+     */
     setFlightMode(flightMode) {
         return this.#navigationManager.setFlightMode(this.#symbol, flightMode)
     }
 
+    /**
+     * Survey the current waypoint for mining sites.
+     * @returns {boolean} true if the operation succeded. False otherwise.
+     */
     async survey() {
         try {
             const data = await this.#navigationManager.survey(this.#symbol)
@@ -265,9 +337,14 @@ class Ship {
         }
     }
 
-    async extract(survey) {
+    /**
+     * 
+     * @param {Object} survey the survey object. Default is null.
+     * @returns {boolean} true if the operation succeded. False otherwise.
+     */
+    async extract(survey = null) {
         try {
-            const data = await this.#navigationManager.extract(this.#symbol, survey)
+            const data = await this.#navigationManager.extract(this.#symbol, survey ?? {})
             console.log(data);
             return true
         } catch (error) {
@@ -276,29 +353,50 @@ class Ship {
         }
     }
 
+    /**
+     * 
+     * @returns {Array<Object>} an array that contains waypoints for the current system the ship is in.
+     */
     async getWaypoints() {
         return await this.#navigationManager.getWaypoints(this.#nav.systemSymbol)
     }
 }
 
+/**
+ * Represents each possible navigation status.
+ * 
+ * @enum {string}
+ * @class
+ */
 class ShipNavStatus {
+    /**
+     * The ship is in orbit.
+     */
     static get IN_ORBIT() {
         return 'IN_ORBIT'
     }
 
+    /**
+     * The ship is docked.
+     */
     static get DOCKED() {
         return 'DOCKED'
     }
 
+    /**
+     * The ship is traveling from a source to a destination.
+     * See Ship#nav for more information.
+     */
     static get IN_TRANSIT() {
         return 'IN_TRANSIT'
     }
 }
 
 /**
- * Enum class for flight mode.
+ * Represents each possible flight mode.
  * 
  * @enum {string}
+ * @class
  */
 class FlightMode {
 
