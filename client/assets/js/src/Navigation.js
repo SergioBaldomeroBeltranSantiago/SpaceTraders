@@ -42,6 +42,10 @@ class NavigationManager {
         return data.waypoints
     }
 
+    /**
+     * Return all ships belonging to the agent.
+     * @returns {Array<Ship>} an array that contains ship instances.
+     */
     async getShips() {
         const { data: ships } = await this.#requestManager.get('/my/ships', this.#token)
         console.log(ships);
@@ -129,10 +133,21 @@ class NavigationManager {
         return this.#requestManager.patch(`/my/ships/${ship}/nav`, this.#token, body)
     }
 
+    /**
+     * Perform a survey on the ship location.
+     * @param {string} ship the ship symbol.
+     * @returns 
+     */
     survey(ship) {
         return this.#requestManager.post(`/my/ships/${ship}/survey`, this.#token)
     }
 
+    /**
+     * Perform an extraction on site.
+     * @param {string} ship the ship symbol
+     * @param {Object} survey the optional survey object.
+     * @returns 
+     */
     extract(ship, survey = null) {
         return this.#requestManager.post(`/my/ships/${ship}/extract`, this.#token, survey ?? {})
     }
@@ -304,7 +319,7 @@ class Ship {
     }
 
     /**
-     * 
+     * Command the ship to navigate to the target waypoint.
      * @param {string} waypoint the symbol of the target waypoint.
      * @returns {Object} an object with information about the navigation.
      */
@@ -338,7 +353,7 @@ class Ship {
     }
 
     /**
-     * 
+     * Extract resources on current waypoint.
      * @param {Object} survey the survey object. Default is null.
      * @returns {boolean} true if the operation succeded. False otherwise.
      */
@@ -354,8 +369,8 @@ class Ship {
     }
 
     /**
-     * 
-     * @returns {Array<Object>} an array that contains waypoints for the current system the ship is in.
+     * Get waypoint for the current system the ship is in.
+     * @returns {Array<Object>} an array that contains waypoints.
      */
     async getWaypoints() {
         return await this.#navigationManager.getWaypoints(this.#nav.systemSymbol)

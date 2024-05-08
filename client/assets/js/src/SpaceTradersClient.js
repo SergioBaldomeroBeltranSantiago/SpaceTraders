@@ -45,7 +45,6 @@ class SpaceTradersClient {
 
     /**
      * Retrieve all agents saves in the browser local storage.
-     * 
      * @returns {Object} an object containing pairs of {callsign, token} for each agent.
      */
     getAgents() {
@@ -55,7 +54,6 @@ class SpaceTradersClient {
     
     /**
      * Start a new session with the given agent token.
-     * 
      * @param {string} token the agent token that will be use to log in.
      * @returns {Session} a session instance.
      * 
@@ -94,7 +92,6 @@ class Session {
 
     /**
      * Create a new session with the Agent as owner.
-     * 
      * @param {Agent} agent An Agent instance.
      * @class
      */
@@ -105,7 +102,6 @@ class Session {
 
     /**
      * Get the agent owner of this session.
-     * 
      * @returns {Agent} the owner of this session.
      */
     getAgentInfo() {
@@ -123,11 +119,9 @@ class Session {
 
     /**
      * Get all the systems in the universe.
-     * 
      * Note: Since the are thousand of systems, pagination is applied.
      * By default, the limit is 10 systems per page. To see more systems, increment {@linkcode page}.
-     * 
-     * @param {Number} page the page number for pagination.
+     * @param {number} page the page number for pagination.
      * @returns {Array<Object>} an array that contains each system information.
      */
     async getSystems(page=1) {

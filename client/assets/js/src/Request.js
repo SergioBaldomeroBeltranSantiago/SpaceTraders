@@ -18,7 +18,7 @@ class Requests {
      * Send a GET request to the endpoint with agent token
      * @param {String} endpoint the API endpoint to hit. Example: '/my/agent'
      * @param {String} token the authorization token for the agent. If token is null, it will send a typical GET request. Default is null
-     * @returns {Promise} a promise that resolves with the response body
+     * @returns {Object} the response body
      */
     async get(endpoint, token = null) {
         let options
@@ -53,7 +53,7 @@ class Requests {
      * @param {String} endpoint the API endpoint to hit. Example: '/my/agent'
      * @param {String} token the authorization token for the agent
      * @param {Object} body the request object
-     * @returns {Promise} a promise that resolves with the response body
+     * @returns {Object} the response body
      * @throws a generic error explaining what went wrong. It contains the error code, the message and the data if any was returned by the endpoint.
      */
     async post(endpoint, token, body) {
@@ -80,7 +80,7 @@ class Requests {
      * Send a POST request to the endpoint
      * @param {String} endpoint the API endpoint to hit. Example: '/my/agent'
      * @param {Object} body the request object
-     * @returns {Promise} a promise that resolves with the response body
+     * @returns {Object} the response body
      * @throws a generic error explaining what went wrong. It contains the error code, the message and the data if any was returned by the endpoint.
      */
     async postGuest(endpoint, body) {
@@ -107,7 +107,7 @@ class Requests {
      * @param {string} endpoint the API endpoint to hit. Example: '/my/agent'
      * @param {string} token the authorization token for the agent
      * @param {Object} body the request object
-     * @returns {Promise} a promise that resolves with the response body
+     * @returns {Object} the response body
      */
     async patch(endpoint, token, body) {
         const options = {
