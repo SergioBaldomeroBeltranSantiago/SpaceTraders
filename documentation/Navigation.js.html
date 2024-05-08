@@ -32,7 +32,7 @@
  * Manage systems, waypoints and navigation.
  * This class needs a agent token so we don't have to pass it every request.
  */
-export default class NavigationManager {
+class NavigationManager {
     #requestManager
     #token
 
@@ -50,9 +50,13 @@ export default class NavigationManager {
      * @returns {Promise}
      * @todo Return a proper data structure for the system
      */
-    async getSystems() {
-        const { data: systems } = await this.#requestManager.get('/systems', this.#token)
-        return systems
+    async getSystems(page=1, limit=10) {
+        const { data, meta } = await this.#requestManager.get(`/systems?page=${page}&amp;limit=${limit}`, this.#token)
+        const total = meta.total
+
+        console.log(data);
+        console.log(meta);
+        return data.systems
     }
 
     /**
@@ -61,15 +65,20 @@ export default class NavigationManager {
      * @return {Promise}
      * @todo Return a proper data structure for the waypoints
      */
-    async getWaypoints(system) {
-        const { data: waypoints } = await this.#requestManager.get(`/systems/${system}/waypoints`, this.#token)
-        return waypoints
+    async getWaypoints(system, page = 1, limit = 10) {
+        const { data, meta } = await this.#requestManager.get(`/systems/${system}/waypoints?page=${page}&amp;limit=${limit}`, this.#token)
+        const total = meta.total
+
+        console.log(data);
+        console.log(meta);
+        return data.waypoints
     }
 
     async getShips() {
         const { data: ships } = await this.#requestManager.get('/my/ships', this.#token)
+        console.log(ships);
         return ships.map(it => {
-            return new Ship(it)
+            return new Ship(it, this)
         })
     }
 
@@ -80,8 +89,9 @@ export default class NavigationManager {
      * @param {string} ship the ship symbol to command
      * @returns {Promise}
      */
-    orbit(ship) {
-        return this.#requestManager.post(`/my/ships/${ship}/orbit`, this.#token)
+    async orbit(ship) {
+        const { data: { nav } } = await this.#requestManager.post(`/my/ships/${ship}/orbit`, this.#token)
+        return nav
     }
 
     /**
@@ -93,8 +103,14 @@ export default class NavigationManager {
      * @param {string} ship the ship symbol to command
      * @return {Promise}
      */
-    dock(ship) {
-        return this.#requestManager.post(`/my/ships/${ship}/dock`, this.#token)
+    async dock(ship) {
+        const { data: { nav } } = await this.#requestManager.post(`/my/ships/${ship}/dock`, this.#token)
+        return nav
+    }
+
+    async navigate(ship, waypoint) {
+        const { data: { nav } } = await this.#requestManager.post(`/my/ships/${ship}/navigate`, this.#token, { waypointSymbol: waypoint })
+        return nav
     }
 
     /**
@@ -144,12 +160,23 @@ export default class NavigationManager {
 
         return this.#requestManager.patch(`/my/ships/${ship}/nav`, this.#token, body)
     }
+
+    survey(ship) {
+        return this.#requestManager.post(`/my/ships/${ship}/survey`, this.#token)
+    }
+
+    extract(ship, survey = null) {
+        return this.#requestManager.post(`/my/ships/${ship}/extract`, this.#token, survey ?? {})
+    }
 }
 
 /**
  * Class representing a ship.
  */
 class Ship {
+    #navigationManager
+
+    #symbol
     #cargo
     #cooldown
     #crew
@@ -162,6 +189,9 @@ class Ship {
     #reactor
     #registration
 
+    get symbol() {
+        return this.#symbol
+    }
     get cargo() {
         return this.#cargo
     }
@@ -197,9 +227,11 @@ class Ship {
     }
 
     /**
-     * 
+     * Create a new ship instance.
+     * @class
      */
-    constructor({ cargo, cooldown, crew, engine, frame, fuel, modules, mounts, nav, reactor, registration }) {
+    constructor({ symbol, cargo, cooldown, crew, engine, frame, fuel, modules, mounts, nav, reactor, registration }, navigationManager) {
+        this.#symbol = symbol
         this.#cargo = cargo
         this.#cooldown = cooldown
         this.#crew = crew
@@ -211,6 +243,87 @@ class Ship {
         this.#nav = nav
         this.#reactor = reactor
         this.#registration = registration
+
+        this.#navigationManager = navigationManager
+    }
+
+    async jumpTo(system) {
+        return await this.#navigationManager.jump(this.#symbol, system)
+    }
+
+    async warpTo(system) {
+        return await this.#navigationManager.warp(this.#symbol, system)
+    }
+
+    async orbit() {
+        try {
+            const nav = await this.#navigationManager.orbit(this.#symbol)
+            this.#nav = nav
+            return true
+        } catch (error) {
+            console.error(error)
+            return false
+        }
+    }
+
+    async dock() {
+        try {
+            const nav = await this.#navigationManager.dock(this.#symbol)
+            this.#nav = nav
+            return true
+        } catch (error) {
+            console.error(error)
+            return false
+        }
+    }
+
+    async navigate(waypoint) {
+        const nav = await this.#navigationManager.navigate(this.#symbol, waypoint)
+        return nav
+    }
+
+    setFlightMode(flightMode) {
+        return this.#navigationManager.setFlightMode(this.#symbol, flightMode)
+    }
+
+    async survey() {
+        try {
+            const data = await this.#navigationManager.survey(this.#symbol)
+            console.log(data);
+            return true
+        } catch (error) {
+            console.error(error);
+            return false
+        }
+    }
+
+    async extract(survey) {
+        try {
+            const data = await this.#navigationManager.extract(this.#symbol, survey)
+            console.log(data);
+            return true
+        } catch (error) {
+            console.error(error);
+            return false
+        }
+    }
+
+    async getWaypoints() {
+        return await this.#navigationManager.getWaypoints(this.#nav.systemSymbol)
+    }
+}
+
+class ShipNavStatus {
+    static get IN_ORBIT() {
+        return 'IN_ORBIT'
+    }
+
+    static get DOCKED() {
+        return 'DOCKED'
+    }
+
+    static get IN_TRANSIT() {
+        return 'IN_TRANSIT'
     }
 }
 
@@ -252,7 +365,9 @@ class FlightMode {
     static get STEALTH() {
         return 'STEALTH'
     }
-}</code></pre>
+}
+
+export default NavigationManager</code></pre>
         </article>
     </section>
 
@@ -262,13 +377,13 @@ class FlightMode {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Agent.html">Agent</a></li><li><a href="AgentManager.html">AgentManager</a></li><li><a href="Session.html">Session</a></li><li><a href="Ship.html">Ship</a></li><li><a href="module.exports.html">exports</a></li></ul><h3>Global</h3><ul><li><a href="global.html#FlightMode">FlightMode</a></li><li><a href="global.html#createAgent">createAgent</a></li><li><a href="global.html#dock">dock</a></li><li><a href="global.html#get">get</a></li><li><a href="global.html#getSystems">getSystems</a></li><li><a href="global.html#getWaypoints">getWaypoints</a></li><li><a href="global.html#jump">jump</a></li><li><a href="global.html#orbit">orbit</a></li><li><a href="global.html#patch">patch</a></li><li><a href="global.html#post">post</a></li><li><a href="global.html#postGuest">postGuest</a></li><li><a href="global.html#setFlightMode">setFlightMode</a></li><li><a href="global.html#warp">warp</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Agent.html">Agent</a></li><li><a href="AgentManager.html">AgentManager</a></li><li><a href="NavigationManager.html">NavigationManager</a></li><li><a href="Session.html">Session</a></li><li><a href="Ship.html">Ship</a></li><li><a href="SpaceTradersClient.html">SpaceTradersClient</a></li><li><a href="module.exports.html">exports</a></li></ul><h3>Global</h3><ul><li><a href="global.html#FlightMode">FlightMode</a></li><li><a href="global.html#get">get</a></li><li><a href="global.html#patch">patch</a></li><li><a href="global.html#post">post</a></li><li><a href="global.html#postGuest">postGuest</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed May 08 2024 01:44:13 GMT+0000 (Coordinated Universal Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed May 08 2024 18:47:38 GMT+0000 (Coordinated Universal Time)
 </footer>
 
 <script> prettyPrint(); </script>

@@ -22,9 +22,11 @@ class NavigationManager {
      * @returns {Promise}
      * @todo Return a proper data structure for the system
      */
-    async getSystems() {
-        const { data: systems } = await this.#requestManager.get('/systems', this.#token)
-        return systems
+    async getSystems(page=1, limit=10) {
+        const { data, meta } = await this.#requestManager.get(`/systems?page=${page}&limit=${limit}`, this.#token)
+        const total = meta.total
+
+        return data
     }
 
     /**
@@ -33,10 +35,10 @@ class NavigationManager {
      * @return {Promise}
      * @todo Return a proper data structure for the waypoints
      */
-    async getWaypoints(system, page = 1) {
-        const data = await this.#requestManager.get(`/systems/${system}/waypoints?page=${page}`, this.#token)
-        const total = data.meta.total
-        console.log(data);
+    async getWaypoints(system, page = 1, limit = 10) {
+        const { data, meta } = await this.#requestManager.get(`/systems/${system}/waypoints?page=${page}&limit=${limit}`, this.#token)
+        const total = meta.total
+
         return data.waypoints
     }
 
@@ -253,11 +255,25 @@ class Ship {
     }
 
     async survey() {
-        return await this.#navigationManager.survey(this.#symbol)
+        try {
+            const data = await this.#navigationManager.survey(this.#symbol)
+            console.log(data);
+            return true
+        } catch (error) {
+            console.error(error);
+            return false
+        }
     }
 
     async extract(survey) {
-        return await this.#navigationManager.extract(this.#symbol, survey)
+        try {
+            const data = await this.#navigationManager.extract(this.#symbol, survey)
+            console.log(data);
+            return true
+        } catch (error) {
+            console.error(error);
+            return false
+        }
     }
 
     async getWaypoints() {
