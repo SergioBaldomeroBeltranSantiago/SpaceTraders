@@ -31,13 +31,13 @@
 /**
  * Manages agents and their token. Use this class to create agents and save them to browser storage.
  */
-export default class AgentManager {
+class AgentManager {
     /**
      * @property key used to save and retrieve agents from browser local storage
      * @private
      */
     #key = 'agents'
-    
+
     /**
      * @property a request manager to handle API requests
      * @private
@@ -58,8 +58,9 @@ export default class AgentManager {
      * the current agent for this session. Its token will be used for futher requests
      */
     currentAgent = null
-    
+
     /**
+     * Create an AgentManager
      * @class
      */
     constructor() {
@@ -77,17 +78,17 @@ export default class AgentManager {
     async createAgent(callsign, faction) {
         const trimmedCallsign = callsign.trim()
         const trimmedFaction = faction.trim()
-        
+
         const body = await this.#requestManager.postGuest('/register', {
             symbol: trimmedCallsign,
             faction: trimmedFaction,
         })
-    
-        
-        const { token, agent: { symbol } } = body.data
 
-        this.#saveAgentToStorage(symbol, token)
-        console.log('Agent created');
+        const { token, agent } = body.data
+
+        const a = new Agent(token, agent)
+        this.#saveAgentToStorage(agent.symbol, token)
+        return a
     }
 
     /**
@@ -97,7 +98,8 @@ export default class AgentManager {
      * @function
      */
     async getAgent(token) {
-        const { data: agent } = await this.#requestManager.get('/my/agent', token)
+        const { data } = await this.#requestManager.get('/my/agent', token)
+        const agent = new Agent(token, data)
         return agent
     }
 
@@ -157,18 +159,81 @@ export default class AgentManager {
  * Represents an agent in game.
  */
 class Agent {
+    #accountId
+    #token
+    #symbol
+    #headquarters
+    #startingFaction
+    #shipCount
+    #credits
 
     /**
-     * @param {String} callsign the agent's name
-     * @param {String} token the unique token that identifies the agent
+     * The account ID.
+     */
+    get accountId() {
+        return this.#accountId
+    }
+    /**
+     * The agent's unique token.
+     */
+    get token() {
+        return this.#token
+    }
+    /**
+     * The name of the agent.
+     */
+    get symbol() {
+        return this.#symbol
+    }
+    /**
+     * The waypoint of the agent's HQ.
+     */
+    get headquarters() {
+        return this.#headquarters
+    }
+    /**
+     * The starting faction of the agent.
+     */
+    get startingFaction() {
+        return this.#startingFaction
+    }
+    /**
+     * The number of ships the agent has.
+     */
+    get shipCount() {
+        return this.#shipCount
+    }
+    /**
+     * The amount of credits the agent has.
+     */
+    get credits() {
+        return this.#credits
+    }
+
+    /**
+     * Create an Agent.
+     * @param {String} token the unique token that identifies the agent.
+     * @param {Object} data the data object
+     * @param {string} data.accountId 
+     * @param {string} data.symbol 
+     * @param {string} data.headquarters 
+     * @param {string} data.startingFaction 
+     * @param {Number} data.shipCount 
+     * @param {string} data.credits 
      * @class
      */
-    constructor(callsign, token) {
-        this.callsign = callsign
-        this.token = token
+    constructor(token, { accountId, symbol, headquarters, startingFaction, shipCount, credits }) {
+        this.#token = token
+        this.#accountId = accountId
+        this.#symbol = symbol
+        this.#headquarters = headquarters
+        this.#startingFaction = startingFaction
+        this.#shipCount = shipCount
+        this.#credits = credits
     }
 }
-</code></pre>
+
+export default AgentManager</code></pre>
         </article>
     </section>
 
@@ -178,13 +243,13 @@ class Agent {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Agent.html">Agent</a></li><li><a href="Session.html">Session</a></li><li><a href="module.exports.html">exports</a></li></ul><h3>Global</h3><ul><li><a href="global.html#FlightMode">FlightMode</a></li><li><a href="global.html#createAgent">createAgent</a></li><li><a href="global.html#dock">dock</a></li><li><a href="global.html#get">get</a></li><li><a href="global.html#getAgent">getAgent</a></li><li><a href="global.html#getAgents">getAgents</a></li><li><a href="global.html#getSystems">getSystems</a></li><li><a href="global.html#getWaypoint">getWaypoint</a></li><li><a href="global.html#jump">jump</a></li><li><a href="global.html#orbit">orbit</a></li><li><a href="global.html#patch">patch</a></li><li><a href="global.html#post">post</a></li><li><a href="global.html#postGuest">postGuest</a></li><li><a href="global.html#setCurrentAgent">setCurrentAgent</a></li><li><a href="global.html#setFlightMode">setFlightMode</a></li><li><a href="global.html#warp">warp</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Agent.html">Agent</a></li><li><a href="AgentManager.html">AgentManager</a></li><li><a href="Session.html">Session</a></li><li><a href="Ship.html">Ship</a></li><li><a href="module.exports.html">exports</a></li></ul><h3>Global</h3><ul><li><a href="global.html#FlightMode">FlightMode</a></li><li><a href="global.html#createAgent">createAgent</a></li><li><a href="global.html#dock">dock</a></li><li><a href="global.html#get">get</a></li><li><a href="global.html#getSystems">getSystems</a></li><li><a href="global.html#getWaypoints">getWaypoints</a></li><li><a href="global.html#jump">jump</a></li><li><a href="global.html#orbit">orbit</a></li><li><a href="global.html#patch">patch</a></li><li><a href="global.html#post">post</a></li><li><a href="global.html#postGuest">postGuest</a></li><li><a href="global.html#setFlightMode">setFlightMode</a></li><li><a href="global.html#warp">warp</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Mon May 06 2024 22:10:10 GMT+0000 (Coordinated Universal Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed May 08 2024 01:44:13 GMT+0000 (Coordinated Universal Time)
 </footer>
 
 <script> prettyPrint(); </script>

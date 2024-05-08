@@ -3,7 +3,7 @@ import Requests from "./Request.js"
 /**
  * Manages agents and their token. Use this class to create agents and save them to browser storage.
  */
-export default class AgentManager {
+class AgentManager {
     /**
      * @property key used to save and retrieve agents from browser local storage
      * @private
@@ -32,6 +32,7 @@ export default class AgentManager {
     currentAgent = null
 
     /**
+     * Create an AgentManager
      * @class
      */
     constructor() {
@@ -84,7 +85,7 @@ export default class AgentManager {
         const a = window.localStorage.getItem(this.#key)
         const agents = (a != null) ? JSON.parse(a).agents : []
 
-        return agents.map(agent => new Agent(agent.callsign, agent.token))
+        return agents
     }
 
     /**
@@ -138,31 +139,59 @@ class Agent {
     #shipCount
     #credits
 
+    /**
+     * The account ID.
+     */
     get accountId() {
         return this.#accountId
     }
+    /**
+     * The agent's unique token.
+     */
     get token() {
         return this.#token
     }
+    /**
+     * The name of the agent.
+     */
     get symbol() {
         return this.#symbol
     }
+    /**
+     * The waypoint of the agent's HQ.
+     */
     get headquarters() {
         return this.#headquarters
     }
+    /**
+     * The starting faction of the agent.
+     */
     get startingFaction() {
         return this.#startingFaction
     }
+    /**
+     * The number of ships the agent has.
+     */
     get shipCount() {
         return this.#shipCount
     }
+    /**
+     * The amount of credits the agent has.
+     */
     get credits() {
         return this.#credits
     }
 
     /**
-     * @param {String} callsign the agent's name
-     * @param {String} token the unique token that identifies the agent
+     * Create an Agent.
+     * @param {String} token the unique token that identifies the agent.
+     * @param {Object} data the data object
+     * @param {string} data.accountId 
+     * @param {string} data.symbol 
+     * @param {string} data.headquarters 
+     * @param {string} data.startingFaction 
+     * @param {Number} data.shipCount 
+     * @param {string} data.credits 
      * @class
      */
     constructor(token, { accountId, symbol, headquarters, startingFaction, shipCount, credits }) {
@@ -175,3 +204,5 @@ class Agent {
         this.#credits = credits
     }
 }
+
+export default AgentManager

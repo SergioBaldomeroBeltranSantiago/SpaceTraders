@@ -28,7 +28,7 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>Agent<span class="signature">(callsign, token)</span><span class="type-signature"></span></h2>
+        <h2><span class="attribs"><span class="type-signature"></span></span>Agent<span class="signature">(token, data)</span><span class="type-signature"></span></h2>
         
             <div class="class-description">Represents an agent in game.</div>
         
@@ -45,12 +45,16 @@
     
 
     
-    <h4 class="name" id="Agent"><span class="type-signature"></span>new Agent<span class="signature">(callsign, token)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="Agent"><span class="type-signature"></span>new Agent<span class="signature">(token, data)</span><span class="type-signature"></span></h4>
     
 
     
 
 
+
+<div class="description">
+    Create an Agent.
+</div>
 
 
 
@@ -85,29 +89,6 @@
 
         <tr>
             
-                <td class="name"><code>callsign</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">the agent's name</td>
-        </tr>
-
-    
-
-        <tr>
-            
                 <td class="name"><code>token</code></td>
             
 
@@ -124,7 +105,194 @@
 
             
 
-            <td class="description last">the unique token that identifies the agent</td>
+            <td class="description last">the unique token that identifies the agent.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>data</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the data object
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>accountId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>symbol</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>headquarters</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>startingFaction</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>shipCount</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>credits</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
         </tr>
 
     
@@ -165,7 +333,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Agent.js.html">Agent.js</a>, <a href="Agent.js.html#line131">line 131</a>
+        <a href="Agent.js.html">Agent.js</a>, <a href="Agent.js.html#line133">line 133</a>
     </li></ul></dd>
     
 
@@ -211,6 +379,444 @@
     
 
     
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<h4 class="name" id="accountId"><span class="type-signature"></span>accountId<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    The account ID.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Agent.js.html">Agent.js</a>, <a href="Agent.js.html#line145">line 145</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="credits"><span class="type-signature"></span>credits<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    The amount of credits the agent has.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Agent.js.html">Agent.js</a>, <a href="Agent.js.html#line181">line 181</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="headquarters"><span class="type-signature"></span>headquarters<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    The waypoint of the agent's HQ.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Agent.js.html">Agent.js</a>, <a href="Agent.js.html#line163">line 163</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="shipCount"><span class="type-signature"></span>shipCount<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    The number of ships the agent has.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Agent.js.html">Agent.js</a>, <a href="Agent.js.html#line175">line 175</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="startingFaction"><span class="type-signature"></span>startingFaction<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    The starting faction of the agent.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Agent.js.html">Agent.js</a>, <a href="Agent.js.html#line169">line 169</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="symbol"><span class="type-signature"></span>symbol<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    The name of the agent.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Agent.js.html">Agent.js</a>, <a href="Agent.js.html#line157">line 157</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="token"><span class="type-signature"></span>token<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    The agent's unique token.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Agent.js.html">Agent.js</a>, <a href="Agent.js.html#line151">line 151</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+    
 
     
 
@@ -227,13 +833,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Agent.html">Agent</a></li><li><a href="Session.html">Session</a></li><li><a href="module.exports.html">exports</a></li></ul><h3>Global</h3><ul><li><a href="global.html#FlightMode">FlightMode</a></li><li><a href="global.html#createAgent">createAgent</a></li><li><a href="global.html#dock">dock</a></li><li><a href="global.html#get">get</a></li><li><a href="global.html#getAgent">getAgent</a></li><li><a href="global.html#getAgents">getAgents</a></li><li><a href="global.html#getSystems">getSystems</a></li><li><a href="global.html#getWaypoint">getWaypoint</a></li><li><a href="global.html#jump">jump</a></li><li><a href="global.html#orbit">orbit</a></li><li><a href="global.html#patch">patch</a></li><li><a href="global.html#post">post</a></li><li><a href="global.html#postGuest">postGuest</a></li><li><a href="global.html#setCurrentAgent">setCurrentAgent</a></li><li><a href="global.html#setFlightMode">setFlightMode</a></li><li><a href="global.html#warp">warp</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Agent.html">Agent</a></li><li><a href="AgentManager.html">AgentManager</a></li><li><a href="Session.html">Session</a></li><li><a href="Ship.html">Ship</a></li><li><a href="module.exports.html">exports</a></li></ul><h3>Global</h3><ul><li><a href="global.html#FlightMode">FlightMode</a></li><li><a href="global.html#createAgent">createAgent</a></li><li><a href="global.html#dock">dock</a></li><li><a href="global.html#get">get</a></li><li><a href="global.html#getSystems">getSystems</a></li><li><a href="global.html#getWaypoints">getWaypoints</a></li><li><a href="global.html#jump">jump</a></li><li><a href="global.html#orbit">orbit</a></li><li><a href="global.html#patch">patch</a></li><li><a href="global.html#post">post</a></li><li><a href="global.html#postGuest">postGuest</a></li><li><a href="global.html#setFlightMode">setFlightMode</a></li><li><a href="global.html#warp">warp</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Mon May 06 2024 22:10:10 GMT+0000 (Coordinated Universal Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed May 08 2024 01:44:13 GMT+0000 (Coordinated Universal Time)
 </footer>
 
 <script> prettyPrint(); </script>

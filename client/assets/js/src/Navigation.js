@@ -4,7 +4,7 @@ import Requests from "./Request.js";
  * Manage systems, waypoints and navigation.
  * This class needs a agent token so we don't have to pass it every request.
  */
-export default class NavigationManager {
+class NavigationManager {
     #requestManager
     #token
 
@@ -33,15 +33,18 @@ export default class NavigationManager {
      * @return {Promise}
      * @todo Return a proper data structure for the waypoints
      */
-    async getWaypoints(system) {
-        const { data: waypoints } = await this.#requestManager.get(`/systems/${system}/waypoints`, this.#token)
-        return waypoints
+    async getWaypoints(system, page = 1) {
+        const data = await this.#requestManager.get(`/systems/${system}/waypoints?page=${page}`, this.#token)
+        const total = data.meta.total
+        console.log(data);
+        return data.waypoints
     }
 
     async getShips() {
         const { data: ships } = await this.#requestManager.get('/my/ships', this.#token)
+        console.log(ships);
         return ships.map(it => {
-            return new Ship(it)
+            return new Ship(it, this)
         })
     }
 
@@ -52,8 +55,9 @@ export default class NavigationManager {
      * @param {string} ship the ship symbol to command
      * @returns {Promise}
      */
-    orbit(ship) {
-        return this.#requestManager.post(`/my/ships/${ship}/orbit`, this.#token)
+    async orbit(ship) {
+        const { data: { nav } } = await this.#requestManager.post(`/my/ships/${ship}/orbit`, this.#token)
+        return nav
     }
 
     /**
@@ -65,8 +69,14 @@ export default class NavigationManager {
      * @param {string} ship the ship symbol to command
      * @return {Promise}
      */
-    dock(ship) {
-        return this.#requestManager.post(`/my/ships/${ship}/dock`, this.#token)
+    async dock(ship) {
+        const { data: { nav } } = await this.#requestManager.post(`/my/ships/${ship}/dock`, this.#token)
+        return nav
+    }
+
+    async navigate(ship, waypoint) {
+        const { data: { nav } } = await this.#requestManager.post(`/my/ships/${ship}/navigate`, this.#token, { waypointSymbol: waypoint })
+        return nav
     }
 
     /**
@@ -116,12 +126,23 @@ export default class NavigationManager {
 
         return this.#requestManager.patch(`/my/ships/${ship}/nav`, this.#token, body)
     }
+
+    survey(ship) {
+        return this.#requestManager.post(`/my/ships/${ship}/survey`, this.#token)
+    }
+
+    extract(ship, survey = null) {
+        return this.#requestManager.post(`/my/ships/${ship}/extract`, this.#token, survey ?? {})
+    }
 }
 
 /**
  * Class representing a ship.
  */
 class Ship {
+    #navigationManager
+
+    #symbol
     #cargo
     #cooldown
     #crew
@@ -134,6 +155,9 @@ class Ship {
     #reactor
     #registration
 
+    get symbol() {
+        return this.#symbol
+    }
     get cargo() {
         return this.#cargo
     }
@@ -169,9 +193,11 @@ class Ship {
     }
 
     /**
-     * 
+     * Create a new ship instance.
+     * @class
      */
-    constructor({ cargo, cooldown, crew, engine, frame, fuel, modules, mounts, nav, reactor, registration }) {
+    constructor({ symbol, cargo, cooldown, crew, engine, frame, fuel, modules, mounts, nav, reactor, registration }, navigationManager) {
+        this.#symbol = symbol
         this.#cargo = cargo
         this.#cooldown = cooldown
         this.#crew = crew
@@ -183,6 +209,73 @@ class Ship {
         this.#nav = nav
         this.#reactor = reactor
         this.#registration = registration
+
+        this.#navigationManager = navigationManager
+    }
+
+    async jumpTo(system) {
+        return await this.#navigationManager.jump(this.#symbol, system)
+    }
+
+    async warpTo(system) {
+        return await this.#navigationManager.warp(this.#symbol, system)
+    }
+
+    async orbit() {
+        try {
+            const nav = await this.#navigationManager.orbit(this.#symbol)
+            this.#nav = nav
+            return true
+        } catch (error) {
+            console.error(error)
+            return false
+        }
+    }
+
+    async dock() {
+        try {
+            const nav = await this.#navigationManager.dock(this.#symbol)
+            this.#nav = nav
+            return true
+        } catch (error) {
+            console.error(error)
+            return false
+        }
+    }
+
+    async navigate(waypoint) {
+        const nav = await this.#navigationManager.navigate(this.#symbol, waypoint)
+        return nav
+    }
+
+    setFlightMode(flightMode) {
+        return this.#navigationManager.setFlightMode(this.#symbol, flightMode)
+    }
+
+    async survey() {
+        return await this.#navigationManager.survey(this.#symbol)
+    }
+
+    async extract(survey) {
+        return await this.#navigationManager.extract(this.#symbol, survey)
+    }
+
+    async getWaypoints() {
+        return await this.#navigationManager.getWaypoints(this.#nav.systemSymbol)
+    }
+}
+
+class ShipNavStatus {
+    static get IN_ORBIT() {
+        return 'IN_ORBIT'
+    }
+
+    static get DOCKED() {
+        return 'DOCKED'
+    }
+
+    static get IN_TRANSIT() {
+        return 'IN_TRANSIT'
     }
 }
 
@@ -225,3 +318,5 @@ class FlightMode {
         return 'STEALTH'
     }
 }
+
+export default NavigationManager
