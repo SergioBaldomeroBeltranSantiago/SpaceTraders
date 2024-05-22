@@ -1,58 +1,58 @@
 .spaceBackground {
-	margin: 0;
-	padding: 0;
-	background-color: #000;
-	background-image: radial-gradient(
-			rgba(255, 255, 255, 0.2) 1px,
-			transparent 1px
-		),
-		radial-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px),
-		radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
-		radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-	background-size:
-		65px 95px,
-		85px 135px,
-		145px 165px,
-		185px 250px;
-	background-position:
-		0 0,
-		0 0,
-		0 0,
-		0 0;
-	background-repeat: repeat, repeat, repeat, repeat;
-	height: 100vh;
-	width: 100vw;
+  margin: 0;
+  padding: 0;
+  background-color: #000;
+  background-image: radial-gradient(
+      rgba(255, 255, 255, 0.2) 1px,
+      transparent 1px
+    ),
+    radial-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px),
+    radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+    radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size:
+    65px 95px,
+    85px 135px,
+    145px 165px,
+    185px 250px;
+  background-position:
+    0 0,
+    0 0,
+    0 0,
+    0 0;
+  background-repeat: repeat, repeat, repeat, repeat;
+  height: 100vh;
+  width: 100vw;
 }
 
 .spaceText {
-	color: #fff;
-	font-family: "Courier New", Courier, monospace;
-	font-size: large;
+  color: #fff;
+  font-family: "Courier New", Courier, monospace;
+  font-size: large;
 }
 
 .flex-container {
-	display: flex;
-	flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .flex-container-row {
-	display: flex;
-	min-width: 600px;
+  display: flex;
+  min-width: 600px;
 }
 
 .flex-container-column {
-	flex: 1;
-	border: 1px solid #fff;
-	padding: 10px;
-	text-align: center;
-	align-items: center;
-	margin-inline: 50px;
+  flex: 1;
+  border: 1px solid #fff;
+  padding: 10px;
+  text-align: center;
+  align-items: center;
+  margin-inline: 50px;
 }
 
-.flex-container-column-secondary{
-	flex: 0.1;
+.flex-container-column-secondary {
+  flex: 0.1;
 }
 
 .flex-container-column-main {
-	flex: 2;
+  flex: 2;
 }
