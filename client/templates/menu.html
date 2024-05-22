@@ -1,16 +1,16 @@
 <div class="flex-container-column">
-	<button
-		class="spaceMenuButton spaceText"
-		onclick="fetchHTML('./templates/existingAgent.html', 'existing-container');switchMenuOption(event, 'existing-container')"
-	>
-		Existing Agent? Click here!
-	</button>
-	<button
-		class="spaceMenuButton spaceText"
-		onclick="switchMenuOption(event, 'new-container')"
-	>
-		New Agent? Click here!
-	</button>
+  <button
+    class="spaceMenuButton spaceText"
+    onclick="fetchHTML('./templates/existingAgent.html', 'existing-container');switchMenuOption(event, 'existing-container')"
+  >
+    Existing Agent? Click here!
+  </button>
+  <button
+    class="spaceMenuButton spaceText"
+    onclick="fetchHTML('./templates/newAgent.html', 'new-container');switchMenuOption(event, 'new-container')"
+  >
+    New Agent? Click here!
+  </button>
 </div>
 
 <div class="spaceSubMenu" id="existing-container"></div>

@@ -1,39 +1,35 @@
 <div class="spaceText">
-	<p>
-		If you already have an agent create, you can use it's existing token to
-		retrive all of the agent's data, like credits, contracts and ships. In
-		order to do that, you can...
-	</p>
-	<details>
-		<summary>Copying and pasting the token as raw text</summary>
-		<p>
-			If you prefer, you can only copy and paste the token from your txt
-			or json file and paste it on the field below.
-		</p>
-		<div class="flex-container-column invisibleBorder"></div>
-		<div class="flex-container-column invisibleBorder">
-			<label>Token: </label>
-			<input
-				id="spaceTokenInputText"
-				type="text"
-				oninput="checkInputs()"
-			/>
-		</div>
-		<div class="flex-container-column invisibleBorder"></div>
-	</details>
-	<div class="flex-container-row">
-		<div class="flex-container-column invisibleBorder"></div>
-		<div class="flex-container-column invisibleBorder">
-			<button
-				id="spaceFindAgent"
-				class="spaceFindAgent spaceText"
-				onclick="validateToken()"
-				style="display: none"
-			>
-				Validate token
-			</button>
-		</div>
-		<div class="flex-container-column invisibleBorder"></div>
-	</div>
+  <p>
+    If you already have an agent create, you can use it's existing token to
+    retrive all of the agent's data, like credits, contracts and ships. In order
+    to do that, you can...
+  </p>
+  <details>
+    <summary>Copying and pasting the token as raw text</summary>
+    <p>
+      If you prefer, you can only copy and paste the token from your txt or json
+      file and paste it on the field below.
+    </p>
+    <div class="flex-container-column invisibleBorder"></div>
+    <div class="flex-container-column invisibleBorder">
+      <label>Token: </label>
+      <input id="spaceTokenInputText" type="text" oninput="checkInputs()" />
+    </div>
+    <div class="flex-container-column invisibleBorder"></div>
+  </details>
+  <div class="flex-container-row">
+    <div class="flex-container-column invisibleBorder"></div>
+    <div class="flex-container-column invisibleBorder">
+      <button
+        id="spaceFindAgent"
+        class="spaceFindAgent spaceText"
+        onclick="validateToken()"
+        style="display: none"
+      >
+        Validate token
+      </button>
+    </div>
+    <div class="flex-container-column invisibleBorder"></div>
+  </div>
 </div>
 ;
